@@ -2,6 +2,7 @@ var fs = require('fs');
 var path = require('path');
 
 var gulp = require('gulp');
+var all = require('gulp-all');
 
 // Load all gulp plugins automatically
 // and attach them to the `plugins` object
@@ -72,10 +73,10 @@ gulp.task('clean', function (done) {
 gulp.task('copy', [
     'copy:.htaccess',
     'copy:jquery',
-    'copy:bootstrap-css',
-    'copy:bootstrap-js',
-    'copy:bootstrap-fonts',
+    'copy:bootstrap',
+    'copy:font-awesome',
     'copy:license',
+    'copy:img',
     'copy:css',
     'copy:misc',
     'copy:normalize'
@@ -93,24 +94,39 @@ gulp.task('copy:jquery', function () {
         .pipe(gulp.dest(dirs.dist + '/js/vendor'));
 });
 
-gulp.task('copy:bootstrap-css', function () {
-    return gulp.src(['node_modules/bootstrap/dist/css/bootstrap.min.css'])
-        .pipe(gulp.dest(dirs.dist + '/js/vendor/bootstrap/css'));
+gulp.task('copy:font-awesome', function () {
+    return all(
+        gulp.src(['node_modules/font-awesome/css/font-awesome.min.css'])
+            .pipe(gulp.dest(dirs.dist +'/js/vendor/font-awesome/css')),
+        gulp.src(['node_modules/font-awesome/fonts/*'])
+            .pipe(gulp.dest(dirs.dist+'/js/vendor/font-awesome/fonts'))
+    );
+
+
 });
 
-gulp.task('copy:bootstrap-js', function () {
-    return gulp.src(['node_modules/bootstrap/dist/js/bootstrap.js'])
-        .pipe(uglify())
-        .pipe(plugins.rename('bootstrap.min.js'))
-        .pipe(gulp.dest(dirs.dist + '/js/vendor/bootstrap/js'));
+gulp.task('copy:bootstrap', function () {
+    return all(
+        gulp.src(['node_modules/bootstrap/dist/css/bootstrap.min.css'])
+            .pipe(gulp.dest(dirs.dist + '/js/vendor/bootstrap/css')),
+        gulp.src(['node_modules/bootstrap/dist/js/bootstrap.js'])
+            .pipe(uglify())
+            .pipe(plugins.rename('bootstrap.min.js'))
+            .pipe(gulp.dest(dirs.dist + '/js/vendor/bootstrap/js')),
+        gulp.src(['node_modules/bootstrap/dist/fonts/*'])
+            .pipe(gulp.dest(dirs.dist + '/js/vendor/bootstrap/fonts'))
+    );
 });
 
-gulp.task('copy:bootstrap-fonts', function () {
-    return gulp.src(['node_modules/bootstrap/dist/fonts/*'])
-        .pipe(gulp.dest(dirs.dist + '/js/vendor/bootstrap/fonts'));
-});
+
+
 
 gulp.task('copy:license', function () {
+    return gulp.src(dirs.src + '/img/**/*')
+        .pipe(gulp.dest(dirs.dist + "/img"));
+});
+
+gulp.task('copy:img', function () {
     return gulp.src('LICENSE.txt')
         .pipe(gulp.dest(dirs.dist));
 });
@@ -138,6 +154,7 @@ gulp.task('copy:misc', function () {
 
         // Exclude the following files
         // (other tasks will handle the copying of these files)
+        '!' + dirs.src + '/img/**/*',
         '!' + dirs.src + '/css/**/*.css',
         '!' + dirs.src + '/js/**/*.js'
     ], {
