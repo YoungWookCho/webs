@@ -1,128 +1,307 @@
-
-.hp-container{
+.hp-container {
     position: relative;
     width: 100%;
     min-height: 100%;
 
 }
-#main-top{
+
+#main-top {
     height: 499px;
     background-image: url(../img/main.jpg);
-    background-size: cover ;
-    background-position-y: 38%;
+    background-size: cover;
     background-repeat: no-repeat;
+    background-position-x: 50%;
+    background-position-y: 69%;
 }
-#main-bar{
+
+#main-bar {
     position: relative;
 }
 
-#main-logo{
+#main-logo {
     color: #ffffff;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
-    padding: 10px 20px;
     line-height: 115%;
+    padding: 10px 20px;
 }
 
-#main-menu{
+#main-menu {
     position: absolute;
     top: 0px;
     right: 0px;
     padding: 10px 20px;
 }
-#main-menu> ul{
+
+#main-menu > ul {
     list-style: none;
     margin: 0px;
     padding: 0px;
 }
-#main-menu> ul> li{
+
+#main-menu > ul > li {
+    display: inline-block;
+    margin-left: 40px;
     color: #ffffff;
     font-size: 16px;
     font-weight: bold;
-    display: inline-block;
-    margin-left: 40px;
     vertical-align: middle;
-
 }
-#main-menu> ul> li:last-child{
+
+#main-menu > ul > li:last-child {
     font-size: 30px;
-
 }
 
-
-#main-top-body{
+#main-top-body {
     text-align: center;
-
-
 }
 
-#main-text{
+#main-text {
     color: #ffffff;
     font-size: 35px;
     padding: 50px 10px 40px 10px;
 }
 
-#main-search-box{
 
-}
-
-#main-search-form{
-    width: 70%;
-    margin-right: auto;
-    margin-left: auto;
+#main-search-form {
     position: relative;
-}
-#main-search-form>i.fa-search{
-    position: absolute;
-    font-size: 27px;
-    color: #cccccc;
-    top:11px;
-    left: 23px;
+    width: 70%;
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-#main-search-btn{
-    position: absolute;
-    top: 0px;
-    right:0px;
-    height: 50px;
-    background-color: #ff792a;
-    border-radius: 25px;
-    width: 180px;
-    font-size: 27px;
-    border: 0px;
-    color: white;
-    font-weight: bold;
-}
-#main-search-btn:focus{
-    outline: none;
-}
-
-
-
-#main-search{
-    width: 100%;
+#main-search {
+    width: 80%;
     height: 50px;
     border: solid 3px #ff792a;
     border-radius: 25px;
     font-size: 20px;
     padding-left: 70px;
-    padding-right: 200px;
+    padding-right: 150px;
 }
-#main-search:focus{
+
+#main-search:focus {
     outline: none;
 }
 
-
-#main-content{
-    padding-bottom: 495px;
-
-}
-
-.hp-bottom{
+#main-search-form>i.fa-search {
     position: absolute;
-    bottom: 0px;
-    width: 100%;
-    height: 495px;
-    background-color: #e3e3e3;
+    top: 9px;
+    left: 110px;
+    font-size: 30px;
+    color: #CCCCCC;
+}
+
+#main-search-btn {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 180px;
+    height: 50px;
+    background-color: #ff792a;
+    color: #ffffff;
+    font-size: 20px;
+    border-radius: 25px;
+    border: 0px;
+    outline: none;
+}
+
+#main-content {
+    padding-bottom: 495px;
+}
+
+#main-content>section{
+    padding: 30px 20px;
+    border-bottom: solid 1px #aaa;
+    position: relative;
 
 }
+#main-content>section:last-child{
+    border-bottom: 0;
+}
+
+.section-title{
+    color: #ff792a;
+    font-size: 20px;
+    padding: 0px 0px 20px 20px;
+}
+.section-body{
+
+}
+.section-contents{
+    position: relative;
+    text-align: center;
+}
+.section-category{
+    position: absolute;
+    top:30px;
+    right: 65px;
+
+}
+.section-category>ul>li{
+    display: inline-block;
+    font-size:18px;
+    color:#777;
+    margin-left: 20px;
+    padding: 0px 10px 10px 10px;
+    cursor: pointer;
+}
+.section-category>ul>li:hover{
+    color: #ff792a;
+    border-bottom: solid 2px #ff792a;
+}
+
+.section-contents>ul{
+    width: 100%;
+    padding: 0px 40px;
+
+
+}
+.section-contents>ul>li{
+    display: inline-block;
+    padding: 15px;
+}
+.section-contents.section01>ul>li{
+    width: 49.5%;
+    height: 230px;
+}
+.section-contents.section02>ul>li{
+    width: 33%;
+    height: 380px;
+}
+
+
+
+.section-img-box{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    color: #fff;
+}
+.section-contents.section03>ul>li,
+.section-contents.section04>ul>li,
+.section-contents.section05>ul>li{
+    width: 24.7%;
+    padding:15px;
+    text-align: left;
+}
+
+
+
+
+.section-img{
+    width:100%;
+    height:160px;
+    background-size: cover;
+}
+
+.section-name{
+    display: inline-block;
+    max-width: 75%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.section-score{
+    display: inline-block;
+    font-weight: bold;
+    color: #ff792a;
+    font-size: 20px;
+    vertical-align: top;
+}
+.section-info{
+    color:#999;
+    line-height: 100%;
+}
+
+.section-img-box .img-box-divider{
+    background-color: #fff;
+    width: 60px;
+    height: 2px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+
+}
+
+.section-img-box .img-box-title{
+    font-size: 30px;
+    line-height: 170%;
+}
+.setion-img-box .img-box-desc{
+    font-weight: bold;
+}
+
+.editor-box{
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.editor-pic{
+    width: 56px;
+    height: 56px;
+    border: solid 2px #ff792a;
+    border-radius: 28px;
+    background-size: cover;
+}
+.editor-name{
+    color: #ff792a;
+    line-height: 200%;
+}
+
+.img-box-text{
+    position: absolute;
+    top : 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+}
+.section-contents.section02 .img-box-text{
+    top: 40%;
+}
+
+.section-paging-arrow{
+    font-size: 40px;
+    color: #aaa;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.section-paging-left{
+    display: none;
+
+}
+.section-paging-right{
+
+    right: 0px;
+
+}
+
+.section-paging{
+    text-align: center;
+}
+.section-paging>ul>li{
+     display: inline-block;
+     color:#666;
+    padding: 0px 3px;
+    font-size:12px;
+ }
+
+
+
+
+.section-paging>ul>li.active{
+
+    color: #ff792a;
+
+}
+
