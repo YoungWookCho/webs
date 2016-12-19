@@ -6,7 +6,8 @@ require.config({
     paths:{
         "console"   : "plugins",
         "jquery"    : "vendor/jquery-3.1.1.min",
-        "bootstrap" : "vendor/bootstrap/js/bootstrap.min"
+        "bootstrap" : "vendor/bootstrap/js/bootstrap.min",
+        "common"    :  "common"
     },
     shim:{
         "bootstrap": {

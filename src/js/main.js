@@ -1,7 +1,8 @@
-
 require([
-    "bootstrap"
+    "common"
 ], function () {
+    var common = require("common");
+
     var sectionInfo = {
         "01": {
             items: [],
@@ -20,29 +21,32 @@ require([
             itemsPerPage: 8
         },
         "05": {
+            maxCategories: 6,
             items: [],
             itemsPerPage: 8
         }
     };
 
     function addSectionItems(sectionCode, page, items) {
-        if(items) {
-            sectionCode[sectionCode].items = items;
+        if (items) {
+            sectionInfo[sectionCode].items = items;
         }
 
-        var items = sectionInfo[sectionCode].items;
+        items = sectionInfo[sectionCode].items;
         var itemsPerPage = sectionInfo[sectionCode].itemsPerPage;
 
         var startIndex = (page - 1) * itemsPerPage;
         var endIndex = Math.min(startIndex + itemsPerPage, items.length);
 
-        if (sectionCode === "01") {
-            for (var i = startIndex; i < endIndex; i++) {
-                var item = items[i];
+        var i, item, sectionHTML;
 
-                var sectionHTML = "<li>";
+        if (sectionCode === "01") {
+            for (i=startIndex;i<endIndex;i++) {
+                item = items[i];
+
+                sectionHTML = "<li>";
                 sectionHTML += "<div class='section-img-box' " +
-                    "style='background-image: url(\"" + item.img + "\")'>";
+                    "style=\"background-image: url('" + item.img + "')\">";
                 sectionHTML += "<div class='layer-darker'>";
                 sectionHTML += "<div class='img-box-text'>";
                 sectionHTML += "<div class='img-box-title'>" + item.title + "</div>";
@@ -55,12 +59,11 @@ require([
                 $(".section-contents.section" + sectionCode + ">ul").append(sectionHTML);
             }
         }
-
         else if (sectionCode === "02") {
-            for (var i = 0; i < items.length; i++) {
-                var item = items[i];
+            for (i=startIndex;i<endIndex;i++) {
+                item = items[i];
 
-                var sectionHTML = "<li>";
+                sectionHTML = "<li>";
                 sectionHTML += "<div class='section-img-box' " +
                     "style=\"background-image: url('" + item.img + "')\">";
                 sectionHTML += "<div class='layer-darker'>";
@@ -83,66 +86,86 @@ require([
                 $(".section-contents.section" + sectionCode + ">ul").append(sectionHTML);
             }
         }
-
         else if (sectionCode === "03" || sectionCode === "04" || sectionCode === "05") {
-            for (var i = 0; i < items.length; i++) {
-                var item = items[i];
+            for (i=startIndex;i<endIndex;i++) {
+                item = items[i];
 
-                var sectionHTML = "<li>";
-                sectionHTML += "<div class='section-img' " +
+                sectionHTML = "<li>";
+                sectionHTML += "<div class=\"section-img\" " +
                     "style=\"background-image: url('" + item.img + "')\"></div>";
-                sectionHTML += "<div class='section-name'>" + item.name + "</div>";
-                sectionHTML += "<div class='section-score'>" + item.score + "</div>";
-                sectionHTML += "<div class='section-info'>" + item.location + " - " + item.category + "</div>";
+                sectionHTML += "<div class=\"section-name\">";
+                sectionHTML += item.name;
+                sectionHTML += "</div>";
+                sectionHTML += "<div class=\"section-score\">";
+                sectionHTML += item.score;
+                sectionHTML += "</div>";
+                sectionHTML += "<div class=\"section-info\">";
+                sectionHTML += item.location + " - " + item.category;
+                sectionHTML += "</div>";
                 sectionHTML += "</li>";
 
                 $(".section-contents.section" + sectionCode + ">ul").append(sectionHTML);
             }
         }
-
-
     }
+
     function initSection(sectionCode) {
         var url = "/api/main/section/" + sectionCode + "/items";
 
         if (sectionCode === "01") {
             $.ajax({
                 url: url,
-                success: function (items) {
+                success: function(items) {
                     addSectionItems(sectionCode, 1, items);
-
-
                 }
-
             });
         }
         else if (sectionCode === "02") {
             $.ajax({
                 url: url,
-                success: function (items) {
+                success: function(items) {
                     addSectionItems(sectionCode, 1, items);
                 }
-
             });
         }
         else if (sectionCode === "03" || sectionCode === "04" || sectionCode === "05") {
+            if (sectionCode === "05") {
+
+                $.ajax({
+                    url: "/api/main/section/" + sectionCode + "/categories",
+                    success: function(categories) {
+                        var maxCategories = sectionInfo[sectionCode].maxCategories;
+
+                        for (var i=0;i<categories.length;i++) {
+                            if (i === maxCategories - 1 && categories.length > maxCategories) {
+                                $(".section-category>ul").append("<li>더보기</li>");
+                                break;
+                            }
+
+                            $(".section-category>ul").append("<li>" + categories[i] + "</li>");
+                        }
+                    }
+                });
+
+
+
+
+            }
+
             $.ajax({
                 url: url,
-                success: function (items) {
+                success: function(items) {
                     addSectionItems(sectionCode, 1, items);
                 }
-
             });
         }
-
     }
-
 
     var timer;
 
     function rotateMainImg() {
         var mainImgNo = parseInt((Math.random() * 100) % 3);
-        var mainImgSrc = "/img/main" + mainImgNo + ".jpg";
+        var mainImgSrc = "img/main" + mainImgNo + ".jpg";
 
         $("#main-top").css("background-image", "url('" + mainImgSrc + "')");
 
@@ -151,6 +174,21 @@ require([
     }
 
 
+
+    function togglerHeader() {
+        if (document.body.scrollTop>=430){
+            $("#main-bar").removeClass("header-transparent");
+        }
+        else{
+            $("#main-bar").addClass("header-transparent");
+        }
+    }
+    $(window).on("scroll", function () {
+        togglerHeader();
+    });
+
+
+    togglerHeader();
     timer = setTimeout(rotateMainImg, 3000);
 
     initSection("01");
@@ -158,4 +196,8 @@ require([
     initSection("03");
     initSection("04");
     initSection("05");
+
+    common.initHotPlaces();
+
+
 });
