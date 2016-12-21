@@ -125,6 +125,7 @@ section-contents {
 .section-contents>ul>li {
     display: inline-block;
     padding: 15px;
+    cursor: pointer;
 }
 
 .section-contents.section01>ul>li {

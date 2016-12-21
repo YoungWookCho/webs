@@ -58,7 +58,17 @@ require([
 
                 $(".section-contents.section" + sectionCode + ">ul").append(sectionHTML);
             }
+            $(".section-contents.section"+sectionCode+" ul>li").on("click",function(){
+
+                location.href="top_list.html";
+            });
         }
+
+
+
+
+
+
         else if (sectionCode === "02") {
             for (i=startIndex;i<endIndex;i++) {
                 item = items[i];
@@ -85,6 +95,10 @@ require([
 
                 $(".section-contents.section" + sectionCode + ">ul").append(sectionHTML);
             }
+
+            $(".section-contents.section"+sectionCode+" ul>li").on("click",function() {
+                location.href="hanbit_picks.html";
+            });
         }
         else if (sectionCode === "03" || sectionCode === "04" || sectionCode === "05") {
             for (i=startIndex;i<endIndex;i++) {
@@ -106,6 +120,9 @@ require([
 
                 $(".section-contents.section" + sectionCode + ">ul").append(sectionHTML);
             }
+            $(".section-contents.section"+sectionCode+" ul>li").on("click",function() {
+                location.href="store.html";
+            });
         }
     }
 
@@ -183,9 +200,14 @@ require([
             $("#main-bar").addClass("header-transparent");
         }
     }
-    $(window).on("scroll", function () {
-        togglerHeader();
-    });
+
+    function handleEvents() {
+        $(window).on("scroll", function () {
+            togglerHeader();
+        });
+
+        }
+
 
 
     togglerHeader();
@@ -198,6 +220,8 @@ require([
     initSection("05");
 
     common.initHotPlaces();
+
+    handleEvents();
 
 
 });

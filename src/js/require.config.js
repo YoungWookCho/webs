@@ -4,9 +4,11 @@
 require.config({
     baseUrl: "js",
     paths:{
+        "async"     : "vendor/requirejs/async",
         "console"   : "plugins",
         "jquery"    : "vendor/jquery-3.1.1.min",
         "bootstrap" : "vendor/bootstrap/js/bootstrap.min",
+        "clipboard" : "vendor/clipboard/clipboard.min",
         "common"    :  "common"
     },
     shim:{
