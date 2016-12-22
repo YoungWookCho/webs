@@ -1,7 +1,10 @@
 require([
-    "common"
+    "common",
+    "animation"
 ], function () {
     var common = require("common");
+    var animation = require("animation");
+    animation.initBolck();
 
     var sectionInfo = {
         "01": {
@@ -111,7 +114,7 @@ require([
                 sectionHTML += item.name;
                 sectionHTML += "</div>";
                 sectionHTML += "<div class=\"section-score\">";
-                sectionHTML += item.score;
+                sectionHTML += item.score.toFixed(1);
                 sectionHTML += "</div>";
                 sectionHTML += "<div class=\"section-info\">";
                 sectionHTML += item.location + " - " + item.category;

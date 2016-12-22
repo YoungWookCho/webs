@@ -1,4 +1,3 @@
-
 require([
     "common",
     "clipboard"
@@ -6,7 +5,6 @@ require([
 
     var common = require("common");
     var Clipboard = require("clipboard");
-
 
     function addItems(items, sectionCode) {
         var i, item, sectionHTML;
@@ -17,7 +15,7 @@ require([
             var startIndex = (page - 1) * itemsPerPage;
             var endIndex = Math.min(startIndex + itemsPerPage, items.length);
 
-            for (i = startIndex; i < endIndex; i++) {
+            for (i=startIndex;i<endIndex;i++) {
                 item = items[i];
 
                 sectionHTML = "<li>";
@@ -27,7 +25,7 @@ require([
                 sectionHTML += item.name;
                 sectionHTML += "</div>";
                 sectionHTML += "<div class=\"section-score\">";
-                sectionHTML += item.score;
+                sectionHTML += item.score.toFixed(1);
                 sectionHTML += "</div>";
                 sectionHTML += "<div class=\"section-info\">";
                 sectionHTML += item.location + " - " + item.category;
@@ -37,35 +35,71 @@ require([
                 $(".section-contents.section" + sectionCode + ">ul").append(sectionHTML);
             }
 
-            $(".section-contents.section" + sectionCode + ">ul>li").on("click", function () {
+            $(".section-contents.section" + sectionCode + ">ul>li").on("click", function() {
                 location.href = "store.html";
             });
         }
-
         else if (sectionCode === "02") {
-            for (i = 0; i < items.length; i++) {
+            for (i=0;i<items.length;i++) {
                 item = items[i];
 
-                $(".section-contents.section" + sectionCode + ">ul").append("<li>#" + item + "</li>");
+                $(".section-contents.section" + sectionCode + ">ul")
+                    .append("<li>#" + item + "</li>");
             }
         }
-
     }
 
     function initTopList() {
+        function initStoreList(topList) {
+            for (var i=0;i<topList.stores.length;i++) {
+                var store = topList.stores[i];
+                var review = store.review;
+
+                var listHTML = "<li>";
+                listHTML += "<div class=\"store-img\" style=\"background-image: url('" + store.img + "')\"></div>";
+                listHTML += "<div class=\"store-contents\">";
+                listHTML += "<div class=\"store-title\">";
+                listHTML += "<span class=\"store-name\">" + (i+1) + ". " + store.name + "</span>";
+                listHTML += " <span class=\"store-score\">" + store.score.toFixed(1) + "</span>";
+                listHTML += "</div>";
+                listHTML += "<div class=\"store-addr\">" + store.address + "</div>";
+                listHTML += "<div class=\"store-review\">";
+                listHTML += "<div class=\"store-review-editor-pic\" style=\"background-image: url('" + review.editorPic + "')\"></div>";
+                listHTML += "<div class=\"store-review-contents\">";
+                listHTML += "<span class=\"store-review-editor-name\">" + review.editorName + "</span>";
+                listHTML += " " + review.content;
+                listHTML += "</div>";
+                listHTML += "</div>";
+                listHTML += "<div class=\"store-link\">" + store.name + " 더보기 &gt;</div>";
+                listHTML += "<div class=\"store-star\">";
+                listHTML += "<i class=\"fa fa-star-o\"></i>";
+                listHTML += "<div class=\"store-star-text\">";
+                listHTML += "가고싶다";
+                listHTML += "</div>";
+                listHTML += "</div>";
+                listHTML += "</div>";
+                listHTML += "</li>";
+
+                $(".list-container>ul").append(listHTML);
+            }
+        }
+
         function configureMap(topList) {
             var center = {
                 lat: 0,
                 lng: 0
             };
 
-            var map = new google.maps.Map(document.getElementById('map'), {
+            var minLat = 5000, maxLat = -5000, minLng = 5000, maxLng = -5000;
+
+            // Create a map object and specify the DOM element for display.
+            var map = new google.maps.Map(document.getElementById("map"), {
                 center: center,
                 scrollwheel: false,
-                zoom: 12
+                zoom: 15
             });
 
-            for (var i = 0; i < topList.stores.length; i++) {
+            for (var i=0;i<topList.stores.length;i++) {
                 var store = topList.stores[i];
 
                 // Create a marker and set its position.
@@ -75,17 +109,24 @@ require([
                     title: store.name
                 });
 
-                center.lat += store.latLng.lat;
-                center.lng += store.latLng.lng;
+                minLat = Math.min(minLat, store.latLng.lat);
+                maxLat = Math.max(maxLat, store.latLng.lat);
+                minLng = Math.min(minLng, store.latLng.lng);
+                maxLng = Math.max(maxLng, store.latLng.lng);
 
                 console.log(marker);
             }
 
-            center.lat /= topList.stores.length;
-            center.lng /= topList.stores.length;
+            center = {
+                lat: (maxLat + minLat) / 2,
+                lng: (maxLng + minLng) / 2
+            };
+
+            var zoom = common.getBestZoom(minLat, maxLat, minLng, maxLng,
+                $("#map").width(), $("#map").height(), 18);
 
             map.panTo(center);
-
+            map.setZoom(zoom);
         }
 
         function initMap(topList) {
@@ -93,42 +134,38 @@ require([
             "AIzaSyAOTSLj132cWOhCddu9kOwj7u2yBQLJ4PQ"], function() {
                 configureMap(topList);
             });
-
         }
 
-
         $.ajax({
-            url: "/api/toplists/christmas",
-            success: function (topList) {
-
+            url: "/api/toplists/chirstmas",
+            success: function(topList) {
                 $("#title-info").html(topList.clicks.toLocaleString() + " 클릭 | " + topList.date);
                 $("#title-text").html(topList.title);
                 $("#title-desc").html(topList.desc);
 
+                initStoreList(topList);
                 initMap(topList);
             }
         });
 
-        var clipboard = new Clipboard('.share-button');
-        clipboard.on('success', function () {
-            alert("클립보드에 복사되었습니다.");
+        var clipboard = new Clipboard(".share-button");
+
+        clipboard.on("success", function() {
+            alert("페이지의 주소가 복사되었습니다.");
         });
-
-
-
     }
 
     function initRelatedArea() {
         $.ajax({
             url: "/api/toplist/related",
-            success: function (items) {
+            success: function(items) {
                 addItems(items, "01");
             }
         });
 
         $.ajax({
             url: "/api/toplist/keywords",
-            success: function (items) {
+            success: function(items) {
                 addItems(items, "02");
             }
         });

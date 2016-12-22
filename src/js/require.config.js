@@ -9,7 +9,8 @@ require.config({
         "jquery"    : "vendor/jquery-3.1.1.min",
         "bootstrap" : "vendor/bootstrap/js/bootstrap.min",
         "clipboard" : "vendor/clipboard/clipboard.min",
-        "common"    :  "common"
+        "common"    :  "common",
+        "animation" :   "animation"
     },
     shim:{
         "bootstrap": {
