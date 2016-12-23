@@ -10,7 +10,7 @@ require.config({
         "bootstrap" : "vendor/bootstrap/js/bootstrap.min",
         "clipboard" : "vendor/clipboard/clipboard.min",
         "common"    :  "common",
-        "animation" :   "animation"
+        "easteregg" :   "easteregg"
     },
     shim:{
         "bootstrap": {

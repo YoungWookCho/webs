@@ -28,6 +28,6 @@
     "browser": true,
     "jquery": true,
     "node": true,
-    "predef":["alert","define","google","annimation"]
+    "predef":["alert","define","google","easteregg"]
 
 }

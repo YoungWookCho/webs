@@ -1,10 +1,7 @@
 require([
-    "common",
-    "animation"
+    "common"
 ], function () {
     var common = require("common");
-    var animation = require("animation");
-    animation.initBolck();
 
     var sectionInfo = {
         "01": {
