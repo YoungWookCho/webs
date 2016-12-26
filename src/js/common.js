@@ -2,6 +2,21 @@ define([
     "bootstrap",
     "easteregg"
 ], function () {
+    function resizeHeaderSearch() {
+        var mainLogoWidth = $("#main-logo").outerWidth();
+        var mainMenuWidth = $("#main-menu").outerWidth();
+
+        $("#header-search").css("padding-left", mainLogoWidth + "px");
+        $("#header-search").css("padding-right", mainMenuWidth + "px");
+    }
+
+    if ($("#header-search").length > 0) {
+        $(window).on("resize", function() {
+            resizeHeaderSearch();
+        });
+
+        resizeHeaderSearch();
+    }
 
     function search() {
         location.href = "search.html";
@@ -11,24 +26,21 @@ define([
         location.href = "/";
     });
 
-    var countEsc=0;
-    $("#main-search").on("keyup", function () {
-
-        if (event.keyCode === 13){
+    $("#main-search, #top-search").on("keyup", function(event) {
+        if (event.keyCode === 13) {
             search();
         }
         else if (event.keyCode === 27) {
             $(this).val("");
-            countEsc++;
-        }
-        if (countEsc===5) {
-            alert("그만 눌러...");
-            countEsc=0;
         }
     });
 
-    $("#main-search-btn").on("click",function () {
+    $("#main-search-btn").on("click", function() {
         search();
+    });
+
+    $(".search-clear").on("click", function () {
+        $("#main-search, #top-search").val("");
     });
 
     function addHotPlaces(hotPlaces) {
@@ -71,11 +83,11 @@ define([
             Math.log(1.6446 * dist / Math.sqrt(2 * (mapWidth * mapHeight))) /
             Math.log (2));
 
-        if (maxZoom) {
-            return Math.min(zoom, maxZoom);
+        if (!maxZoom) {
+            maxZoom = 21;
         }
 
-        return zoom;
+        return Math.min(zoom, maxZoom);
     }
 
     return {

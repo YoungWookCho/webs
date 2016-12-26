@@ -1,4 +1,5 @@
-@import 'lib/include_all.less';
+@import 'lib/include.all.less';
+
 /*
  * What follows is the result of much research on cross-browser styling.
  * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
@@ -15,21 +16,8 @@ html {
     line-height: 1.4;
 }
 
-html, body{
+html, body {
     height: 100%;
-}
-
-.layer-dark{
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.2);
-}
-.layer-darker{
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.3);
 }
 
 ul {
@@ -38,12 +26,34 @@ ul {
     margin: 0;
 }
 
+.layer-dark {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.layer-darker {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.hp-container {
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+}
+
+@mainbarHeight: 66px;
 
 #main-bar {
     position: fixed;
     left: 0px;
     top: 0px;
     width: 100%;
+    height: @mainbarHeight;
     z-index: 10;
     background-color: #fff;
     border-bottom: solid 1px #ddd;
@@ -56,7 +66,7 @@ ul {
 
 #main-logo {
     display: inline-block;
-    color: @mainColor;
+    color: @main-color;
     font-size: 20px;
     font-weight: bold;
     line-height: 115%;
@@ -68,50 +78,74 @@ ul {
     color: #ffffff;
 }
 
+#header-search {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.header-search-form {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.header-search-form>i.fa-search {
+    @abs-vmiddle();
+    left: 30px;
+    font-size: 30px;
+    color: #CCCCCC;
+}
+
+#top-search {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    font-size: 20px;
+    padding-left: 70px;
+}
+.search-clear{
+    @abs-vmiddle();
+    font-size: 17px;
+    color: #ccc;
+    right: 20px;
+    cursor: pointer;
+}
+
+
+
+#top-search:focus {
+    outline: none;
+}
+
 #main-menu {
     position: absolute;
     top: 0px;
     right: 0px;
-    padding: 0px;
-}
-
-#main-menu>ul {
-    list-style: none;
-    margin: 0px;
-    padding: 0px;
 }
 
 #main-menu>ul>li {
     display: inline-block;
-
+    padding-left: 20px;
+    padding-right: 20px;
+    border-left: solid 1px #ddd;
     color: #aaa;
     font-size: 16px;
     font-weight: bold;
+    line-height: @mainbarHeight;
     vertical-align: middle;
-    padding :0px 20px;
-    border-left: solid 1px #aaa;
-    line-height: 66px;
-
 }
 
 .header-transparent #main-menu>ul>li {
-    color: #ffffff;
-    border: none;
+    border-left: 0;
+    color: #fff;
 }
 
 #main-menu>ul>li:last-child {
     font-size: 30px;
 }
-
-
-.hp-container {
-    position: relative;
-    width: 100%;
-    min-height: 100%;
-
-}
-
-
 
 footer {
     position: absolute;
@@ -133,11 +167,12 @@ footer {
 }
 
 .footer-box>div:last-child {
-    border: 0px;
+    border: 0;
 }
 
 #footer-menu {
     padding-top: 65px;
+    padding-bottom: 15px;
 }
 
 #footer-menu>div {
@@ -146,7 +181,7 @@ footer {
 }
 
 #footer-logo {
-    width: 25%;
+    width: 24.5%;
 }
 
 #footer-logo-ci {
@@ -168,7 +203,6 @@ footer {
 
 #footer-menus {
     width: 49.5%;
-    padding-bottom: 15px;
 }
 
 #footer-menus>ul {
@@ -179,7 +213,6 @@ footer {
 
 #footer-menus>ul>li {
     height: 35px;
-    cursor: pointer;
 }
 
 #footer-sns {
@@ -187,17 +220,11 @@ footer {
     text-align: right;
 }
 
-#footer-sns>ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
 #footer-sns>ul>li {
     display: inline-block;
     width: 45px;
     height: 45px;
-    margin-left: 40px;
+    margin-left: 35px;
     border: solid 1px #aaa;
     border-radius: 22.5px;
     text-align: center;
@@ -205,69 +232,57 @@ footer {
     cursor: pointer;
 }
 
-#footer-location{
-    padding:10px 0px 25px 0px;
+#footer-location {
+    padding: 20px 0px 30px 0px;
 }
 
 #footer-location>ul>li {
     display: inline-block;
     border-right: solid 1px #aaa;
-    padding-right: 5px;
     padding-left: 5px;
+    padding-right: 5px;
     line-height: 100%;
-    cursor: pointer;
-}
-#footer-location>ul>li:first-child {
-
-    cursor: text;
 }
 
 #footer-location>ul>li:first-child,
-footer-location>ul>li:last-child{
-    border-right:0px ;
-    padding-right: 0px;
-}
-#footer-location>ul>li:nth-child(2){
-    padding-left: 0px;
+#footer-location>ul>li:last-child {
+    border-right: 0;
+    padding-right: 0;
 }
 
+#footer-location>ul>li:nth-child(2) {
+    padding-left: 0;
+}
 
-
-#footer-info{
+#footer-info {
     position: relative;
     padding: 30px 0px;
-
-
 }
-#footer-language{
+
+#footer-language {
     position: absolute;
     top: 40px;
     right: 0px;
-
 }
 
-#footer-language>ul>li{
+#footer-language>ul>li {
     display: inline-block;
-    border-right: 1px solid #aaa;
+    border-right: solid 1px #aaa;
     line-height: 100%;
-    padding: 0px 10px 0px 10px;
-    cursor: pointer;
+    padding: 0px 10px;
 }
-#footer-language>ul>li.active{
-    color: #fff;
-}
-
-#footer-language>ul>li:first-child{
+#footer-language>ul>li:first-child {
     padding-left: 0;
-
 }
-#footer-language>ul>li:last-child{
+
+#footer-language>ul>li:last-child {
     border-right: 0;
     padding-right: 0;
-
 }
 
-
+#footer-language>ul>li.active {
+    color: #fff;
+}
 
 /*
  * Remove text-shadow in selection highlight:
@@ -444,8 +459,8 @@ textarea {
 }
 
 @media print,
-       (min-resolution: 1.25dppx),
-       (min-resolution: 120dpi) {
+(min-resolution: 1.25dppx),
+(min-resolution: 120dpi) {
     /* Style adjustments for high resolution devices */
 }
 
