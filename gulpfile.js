@@ -195,7 +195,7 @@ gulp.task('copy:normalize', function () {
 gulp.task('handlebars', function() {
     var globalData = {
         lang: 'ko',
-        ceoName: '김한슬',
+        ceoName: '조영욱',
         bizNo: '000-00-00000',
         bizAddr: '서울특별시 마포구 백범로 23'
     };
