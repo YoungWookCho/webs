@@ -1,2 +1,161 @@
 @import 'lib/include.all.less';
 @import 'common.css';
+
+.search-contents {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+@search-info-width: 400px;
+
+.search-list {
+
+    padding-right: @search-info-width;
+}
+
+.search-list>.inner {
+    position: relative;
+    width: 800px;
+    @margin-auto-width();
+    padding: 20px 40px 40px 40px;
+}
+
+.search-list section {
+    position: relative;
+}
+
+@section-title-padding-height: 17px;
+
+section.title {
+    padding: @section-title-padding-height 0px;
+}
+
+#search-title {
+    color: @main-color;
+    font-size: 24px;
+}
+
+#filter {
+    position: absolute;
+    top: @section-title-padding-height;
+    right: 0px;
+    font-size: 20px;
+    color: #aaaaaa;
+}
+
+#filter>i {
+    font-size: 22px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+section.category {
+    border: solid 1px #E7E7E7;
+
+}
+section.category>ul {
+    padding: 10px 0px;
+
+}
+
+section.category>ul>li {
+    display: inline-block;
+    padding: 0px 7px;
+    color: #999;
+    cursor: pointer;
+    border-right: 1px solid #E7E7E7;
+    line-height: 100%;
+}
+
+.stores>li {
+    display: inline-block;
+    width: 49.5%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    cursor: pointer;
+}
+
+.stores>li:nth-child(odd) {
+    padding-right: 15px;
+}
+
+.stores>li:nth-child(even) {
+    padding-left: 15px;
+}
+
+.store-img {
+    width: 100%;
+    height: 239px;
+    background-size: cover;
+}
+
+.store-name, .store-score {
+    display: inline-block;
+}
+
+.store-name {
+    max-width: 75%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 22px;
+    color: #555;
+    line-height: 150%;
+}
+
+.store-score {
+    color: #ff792a;
+    font-size: 22px;
+    vertical-align: top;
+    line-height: 150%;
+}
+
+.store-info {
+    color: #9b9b9b;
+    line-height: 100%;
+}
+
+.store-views, .store-reviews {
+    display: inline-block;
+    color: #9b9b9b;
+    font-size: 10px;
+    line-height: 250%;
+}
+.store-views>i, .store-reviews>i {
+    margin-right: 5px;
+}
+
+.store-reviews{
+    margin-left: 5px;
+}
+@paging-circle-size:50px;
+@paging-circle-border: 2px;
+@paging-inactive-color:#aaa;
+.paging>li{
+     display: inline-block;
+     width: @paging-circle-size;
+     height: @paging-circle-size;
+     border-radius: @paging-circle-size/2;
+     border: solid @paging-circle-border @paging-inactive-color;
+     margin-right: 10px;
+     text-align: center;
+     line-height: (@paging-circle-size)-@paging-circle-border*2;
+    font-size: 20px;
+    color:@paging-inactive-color;
+    cursor: pointer;
+ }
+.paging>li.active{
+    border-color: @main-color;
+}
+
+.search-info {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: @search-info-width;
+    min-height: 100%;
+    background-color: #f6f6f6;
+}
+
+
