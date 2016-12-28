@@ -1,3 +1,5 @@
+
+
 @import 'lib/include.all.less';
 @import 'common.css';
 
@@ -10,15 +12,16 @@
 @search-info-width: 400px;
 
 .search-list {
-
-    padding-right: @search-info-width;
+    display: inline-block;
+    width: calc(~"100% -" @search-info-width);
+    vertical-align: top;
 }
 
-.search-list>.inner {
+.search-list > .inner {
     position: relative;
     width: 800px;
     @margin-auto-width();
-    padding: 20px 40px 40px 40px;
+    padding: 20px 20px 50px 20px;
 }
 
 .search-list section {
@@ -42,45 +45,43 @@ section.title {
     right: 0px;
     font-size: 20px;
     color: #aaaaaa;
+    cursor: pointer;
 }
 
-#filter>i {
+#filter > i {
     font-size: 22px;
     margin-right: 5px;
-    cursor: pointer;
 }
 
 section.category {
     border: solid 1px #E7E7E7;
-
 }
-section.category>ul {
+
+section.category > ul {
     padding: 10px 0px;
-
 }
 
-section.category>ul>li {
+section.category > ul > li {
     display: inline-block;
     padding: 0px 7px;
-    color: #999;
+    color: #7F7F7F;
     cursor: pointer;
-    border-right: 1px solid #E7E7E7;
+    border-right: solid 1px #E7E7E7;
     line-height: 100%;
 }
 
-.stores>li {
+.stores > li {
     display: inline-block;
     width: 49.5%;
     padding-top: 15px;
     padding-bottom: 15px;
-    cursor: pointer;
 }
 
-.stores>li:nth-child(odd) {
+.stores > li:nth-child(odd) {
     padding-right: 15px;
 }
 
-.stores>li:nth-child(even) {
+.stores > li:nth-child(even) {
     padding-left: 15px;
 }
 
@@ -88,6 +89,7 @@ section.category>ul>li {
     width: 100%;
     height: 239px;
     background-size: cover;
+    cursor: pointer;
 }
 
 .store-name, .store-score {
@@ -122,35 +124,40 @@ section.category>ul>li {
     font-size: 10px;
     line-height: 250%;
 }
-.store-views>i, .store-reviews>i {
+
+.store-views > i, .store-reviews > i {
     margin-right: 5px;
 }
 
-.store-reviews{
+.store-reviews {
     margin-left: 5px;
 }
-@paging-circle-size:50px;
+
+@paging-circle-size: 50px;
 @paging-circle-border: 2px;
-@paging-inactive-color:#aaa;
-.paging>li{
-     display: inline-block;
-     width: @paging-circle-size;
-     height: @paging-circle-size;
-     border-radius: @paging-circle-size/2;
-     border: solid @paging-circle-border @paging-inactive-color;
-     margin-right: 10px;
-     text-align: center;
-     line-height: (@paging-circle-size)-@paging-circle-border*2;
+@paging-inactive-color: #cbcbcb;
+
+.paging > li {
+    display: inline-block;
+    width: @paging-circle-size;
+    height: @paging-circle-size;
+    border: solid @paging-circle-border @paging-inactive-color;
+    border-radius: @paging-circle-size/2;
+    margin-right: 10px;
+    text-align: center;
+    line-height: (@paging-circle-size)-(@paging-circle-border)*2;
     font-size: 20px;
-    color:@paging-inactive-color;
+    color: @paging-inactive-color;
     cursor: pointer;
- }
-.paging>li.active{
+}
+
+.paging > li.active {
     border-color: @main-color;
+    color: @main-color;
 }
 
 .search-info {
-    position: absolute;
+    display: inline-block;
     top: 0px;
     right: 0px;
     width: @search-info-width;
@@ -158,4 +165,89 @@ section.category>ul>li {
     background-color: #f6f6f6;
 }
 
+#map {
+    width: 100%;
+    height: 485px;
+}
 
+.section-title {
+    color: @main-color;
+    font-size: 22px;
+    line-height: 70px;
+}
+
+.toplist, .surrounds {
+    padding: 0px 20px;
+}
+
+.toplist .section-contents>ul>li {
+    width: 100%;
+    height: 165px;
+
+}
+
+.img-box {
+    position: relative;
+    @fill();
+    background-size: cover;
+    color: #fff;
+}
+
+.img-box-text {
+    @abs-center();
+    white-space: nowrap;
+    text-align: center;
+}
+
+.img-box-title {
+    font-size: 20px;
+    line-height: 170%;
+}
+
+.contents.section02 .img-box-text {
+    top: 40%;
+}
+
+.img-box .img-box-title {
+    font-size: 30px;
+    line-height: 170%;
+}
+
+.img-box .img-box-divider {
+    background-color: #fff;
+    width: 60px;
+    height: 2px;
+    margin-top: 20px;
+    @margin-auto-width();
+    margin-bottom: 20px;
+}
+
+.surrounds .section-contents {
+    padding-bottom: 40px;
+}
+
+.surrounds .section-contents > ul > li {
+    display: inline-block;
+    border: solid 1px #ccc;
+    border-radius: 15px;
+    background-color: #fff;
+    padding: 0px 15px;
+    line-height: 30px;
+    margin: 5px;
+}
+
+.search-filter {
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: calc(~"100% -" @search-info-width);
+    height: 100%;
+    background-color: #66512c;
+}
+
+.close-filter {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+}

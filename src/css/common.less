@@ -1,5 +1,8 @@
 @import 'lib/include.all.less';
-
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
+* {
+    font-family: 'Spoqa Han Sans', 'Sans-serif';
+}
 /*
  * What follows is the result of much research on cross-browser styling.
  * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
@@ -46,14 +49,14 @@ ul {
     min-height: 100%;
 }
 
-@mainbarHeight: 66px;
+
 
 #main-bar {
     position: fixed;
     left: 0px;
     top: 0px;
     width: 100%;
-    height: @mainbarHeight;
+    height: @mainbar-height;
     z-index: 10;
     background-color: #fff;
     border-bottom: solid 1px #ddd;
@@ -134,7 +137,7 @@ ul {
     color: #aaa;
     font-size: 16px;
     font-weight: bold;
-    line-height: @mainbarHeight;
+    line-height: @mainbar-height;
     vertical-align: middle;
 }
 
