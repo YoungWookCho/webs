@@ -17,7 +17,7 @@ var dirs = pkg['h5bp-configs'].directories;
 
 var uglify = require('gulp-uglify');
 var pump = require('pump');
-
+var htmlmin= require('gulp-html-minifier');
 var handlebars = require('gulp-compile-handlebars');
 var less = require('gulp-less');
 
@@ -210,6 +210,10 @@ gulp.task('handlebars', function() {
         .pipe(handlebars(globalData, options))
         .pipe(plugins.rename(function(path) {
             path.extname = '.html';
+        }))
+        .pipe(htmlmin({
+            collapseWhitespace: true,
+            removeComments: true
         }))
         .pipe(gulp.dest(dirs.dist));
 });
