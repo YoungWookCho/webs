@@ -50,7 +50,7 @@ require([
                 sectionHTML += "<div class='layer-darker'>";
                 sectionHTML += "<div class='img-box-text'>";
                 sectionHTML += "<div class='img-box-title'>" + item.title + "</div>";
-                sectionHTML += "<div class='img-box-desc'>" + item.desc + "</div>";
+                sectionHTML += "<div class='img-box-desc'>" + item.description + "</div>";
                 sectionHTML += "</div>";
                 sectionHTML += "</div>";
                 sectionHTML += "</div>";
@@ -80,7 +80,7 @@ require([
                 sectionHTML += "<div class='img-box-text'>";
                 sectionHTML += "<div class='img-box-title'>" + item.title + "</div>";
                 sectionHTML += "<div class='img-box-divider'></div>";
-                sectionHTML += "<div class='img-box-desc'>" + item.desc + "</div>";
+                sectionHTML += "<div class='img-box-desc'>" + item.description + "</div>";
                 sectionHTML += "</div>";
                 sectionHTML += "<div class='editor-box'>";
                 sectionHTML += "<div class='editor-pic' " +
@@ -127,7 +127,15 @@ require([
     }
 
     function initSection(sectionCode) {
-        var url = "/api/main/section/" + sectionCode + "/items";
+        var url = "";
+
+        if (sectionCode === "01" || sectionCode === "02") {
+            url += "/api2";
+        }
+        else {
+            url +="/api";
+        }
+        url += "/main/section/"+sectionCode+"/items";
 
         if (sectionCode === "01") {
             $.ajax({
@@ -179,17 +187,30 @@ require([
     }
 
     var timer;
+    var mainImgList=[];
+
+
+
 
     function rotateMainImg() {
-        var mainImgNo = parseInt((Math.random() * 100) % 3);
-        var mainImgSrc = "img/main" + mainImgNo + ".jpg";
-
+        var mainImgCount=mainImgList.length;
+        var mainImgNo = parseInt((Math.random() * 100) % mainImgCount);
+        var mainImgSrc = mainImgList[mainImgNo];
         $("#main-top").css("background-image", "url('" + mainImgSrc + "')");
 
         clearTimeout(timer);
         timer = setTimeout(rotateMainImg, 3000);
     }
 
+    function getMainImgs() {
+        $.ajax({
+            url: "/api2/main/imgs",
+            success: function (imgList) {
+                mainImgList=imgList;
+                rotateMainImg();
+            }
+        });
+    }
 
 
     function togglerHeader() {
@@ -211,7 +232,7 @@ require([
 
 
     togglerHeader();
-    timer = setTimeout(rotateMainImg, 3000);
+    getMainImgs();
 
     initSection("01");
     initSection("02");

@@ -126,12 +126,14 @@ require([
     function showSearchFilter() {
         resizeSearchFilter();
         $("body").css("overflow","hidden");
-        $(".search-filter-layer").show();
+        $(".search-filter-layer").fadeIn();
     }
 
     function hideSearchFilter() {
+        $(".tab-more-box").hide();
+
         $("body").css("overflow","");
-        $(".search-filter-layer").hide();
+        $(".search-filter-layer").fadeOut();
     }
 
     $(window).on("resize",function () {
@@ -149,6 +151,39 @@ require([
 
     $(".search-filter").on("click", function () {
         event.stopPropagation();
+
+        $(".tab-more-box").hide();
+    });
+
+
+
+    $(".select-single>li").on("click",function () {
+
+        var select = $(this).parent("ul");
+        select.find("li").removeClass("active");
+        $(this).addClass("active");
+
+    });
+    $(".select-multiple>li").on("click",function () {
+        $(this).toggleClass("active");
+    });
+
+    $(".filter-region .select-tab>li").on("click",function (event) {
+        event.stopPropagation();
+
+        $(".filter-region .select-tab>li").removeClass("active");
+        $(this).addClass("active");
+
+        if ($(this).hasClass("tab-more")){
+            $(".tab-more-box").toggle();
+            return;
+        }
+
+        var region =$(this).attr("region");
+
+        $(".region-details").hide();
+        $(".region-details[region='"+region+"']").show();
+
     });
 
     initMap(tempList);

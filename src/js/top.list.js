@@ -144,6 +144,61 @@ require([
                 $("#title-desc").html(topList.desc);
 
                 initStoreList(topList);
+
+                function getLotto(){
+                    var lotto= [];
+
+                    while(true){
+                        var number=parseInt(Math.random()*1000)%45+1;
+
+                        if (lotto.indexOf(number) === -1){
+                            lotto.push(number);
+                        }
+                        else {
+                            continue;
+                        }
+
+                        if (lotto.length === 6){
+                            break;
+                        }
+
+                    }
+                    console.log(lotto);
+                }
+
+                function animatePath(obj, path) {
+                    var index = parseInt(Math.random()*1000) % path.length;
+                    getLotto();
+
+
+                    obj.animate({
+                        top: path[index].top,
+                        right: path[index].right,
+                        opacity: path[index].opacity
+                    },{
+                        duration:path[index].duration,
+                       complete: function () {
+                           animatePath(obj, path);
+                       }
+                    });
+                }
+
+                $(".store-star").on("click",function () {
+                    var R=100;
+                    var path = [{
+                        top:R, right:0,duration: 200,opacity:0.1
+                    },{
+                        top:0, right:40,duration: 500,opacity:0.3
+                    },{
+                        top:30, right:70,duration: 700,opacity:0.6
+                    },{
+                        top:0, right:0,duration: 300,opacity:0.9
+                    }];
+
+                    animatePath($(this), path);
+
+
+                });
                 initMap(topList);
             }
         });
@@ -170,6 +225,8 @@ require([
             }
         });
     }
+
+
 
     initTopList();
     initRelatedArea();

@@ -395,11 +395,128 @@ section.category>ul>li {
     top: 0px;
     left: calc(~"50% + " @price-circle-gap*3);
 }
+
+.region-names>li {
+    display: inline-block;
+    width: 16.6%;
+    line-height: 300%;
+    color: #aaa;
+    font-size: 18px;
+    border-bottom: solid 1px #aaa;
+    text-align: center;
+}
+@region-derail-margin :10px;
+
+.region-details {
+    display: none;
+    padding: @region-derail-margin 0px;
+    margin: 0px - @region-derail-margin;
+
+}
+
+.regions>ul:first-child {
+    display: block;
+}
+
+.tab-more {
+    position: relative;
+}
+
+.tab-more-box {
+    display: none;
+    position: absolute;
+    top: calc(~"100% + 10px");
+    left: 0px;
+    width: 100%;
+    border: solid 1px #aaa;
+    z-index: 10;
+    background-color: white;
+}
+
+.more-tabs {
+    width: 100%;
+    padding: 20px 10px;
+}
+.more-tabs>li {
+    width: 100%;
+    line-height: 150%;
+}
+.tab-more-arrow {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: -18px;
+    left: 50%;
+    border-top: solid 1px #aaa;
+    border-right: solid 1px #aaa;
+    transform: rotate(-45deg) translateX(-50%);
+
+    background-color: white;
+}
+
+@region-detail-height :40px;
+@region-detail-border-width:2px;
+
+.region-details>li {
+    display: inline-block;
+    width: calc(~"25% - 20px");
+    line-height: (@region-detail-height)- @region-detail-border-width*2;
+    text-align: center;
+    border: solid 2px #aaa;
+    border-radius: @region-detail-height/2;
+    margin: @region-derail-margin;
+    color: #aaa;
+}
+
+.region-names>li.active {
+    color:  @main-color;
+    border-bottom-color: @main-color ;
+    border-bottom-width: 2px ;
+}
+
+.select>li{
+    cursor: pointer;
+}
+
+
+.region-names>li:last-child {
+    width: 17%;
+}
+
+
 .select>li.active,
-.select>li.active .price-circle {
+.select>li.active .price-circle,
+.select>li.active .food-circle{
     border-color: @main-color;
     color: @main-color;
 }
+
+.filter-food .select {
+    padding: 0px 70px;
+}
+
+
+@food-circle-size : 90px;
+
+.filter-food .select>li {
+    position: relative;
+    display: inline-block;
+    width: 25%;
+    height: (@food-circle-size)+30px;
+}
+.food-circle {
+    @abs-hcenter();
+    width: @price-circle-size;
+    height: @price-circle-size;
+    border: solid 2px #aaaaaa;
+    border-radius: @price-circle-size/2;
+    color: #aaaaaa;
+    line-height: @price-circle-size;
+    text-align: center;
+    font-size: 16px;
+    background-color: #fff;
+}
+
 
 .sf-buttons {
     position: absolute;
