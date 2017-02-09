@@ -46,7 +46,7 @@ require([
 
                 sectionHTML = "<li>";
                 sectionHTML += "<div class='section-img-box' " +
-                    "style=\"background-image: url('" + item.img + "')\">";
+                    "style=\"background-image: url('"+global.root +"/"+ item.img + "')\">";
                 sectionHTML += "<div class='layer-darker'>";
                 sectionHTML += "<div class='img-box-text'>";
                 sectionHTML += "<div class='img-box-title'>" + item.title + "</div>";
@@ -75,7 +75,7 @@ require([
 
                 sectionHTML = "<li>";
                 sectionHTML += "<div class='section-img-box' " +
-                    "style=\"background-image: url('" + item.img + "')\">";
+                    "style=\"background-image: url('"+global.root +"/"+item.img + "')\">";
                 sectionHTML += "<div class='layer-darker'>";
                 sectionHTML += "<div class='img-box-text'>";
                 sectionHTML += "<div class='img-box-title'>" + item.title + "</div>";
@@ -84,7 +84,7 @@ require([
                 sectionHTML += "</div>";
                 sectionHTML += "<div class='editor-box'>";
                 sectionHTML += "<div class='editor-pic' " +
-                    "style=\"background-image: url('" + item.editorPic + "')\"></div>";
+                    "style=\"background-image: url('"+global.root +"/"+item.editorPic + "')\"></div>";
                 sectionHTML += "<div class='editor-name'>";
                 sectionHTML += item.editorName;
                 sectionHTML += "</div>";
@@ -106,7 +106,7 @@ require([
 
                 sectionHTML = "<li>";
                 sectionHTML += "<div class=\"section-img\" " +
-                    "style=\"background-image: url('" + item.img + "')\"></div>";
+                    "style=\"background-image: url('"+global.root +"/"+ item.img + "')\"></div>";
                 sectionHTML += "<div class=\"section-name\">";
                 sectionHTML += item.name;
                 sectionHTML += "</div>";
@@ -121,13 +121,13 @@ require([
                 $(".section-contents.section" + sectionCode + ">ul").append(sectionHTML);
             }
             $(".section-contents.section"+sectionCode+" ul>li").on("click",function() {
-                location.href="store.html";
+                location.href="/sub/store.html";
             });
         }
     }
 
     function initSection(sectionCode) {
-        var url = "";
+        var url =global.root;
 
         if (sectionCode === "01" || sectionCode === "02") {
             url += "/api2";
@@ -157,7 +157,7 @@ require([
             if (sectionCode === "05") {
 
                 $.ajax({
-                    url: "/api/main/section/" + sectionCode + "/categories",
+                    url: global.root +"/api/main/section/" + sectionCode + "/categories",
                     success: function(categories) {
                         var maxCategories = sectionInfo[sectionCode].maxCategories;
 
@@ -196,7 +196,7 @@ require([
         var mainImgCount=mainImgList.length;
         var mainImgNo = parseInt((Math.random() * 100) % mainImgCount);
         var mainImgSrc = mainImgList[mainImgNo];
-        $("#main-top").css("background-image", "url('" + mainImgSrc + "')");
+        $("#main-top").css("background-image", "url('"+global.root +"/"+mainImgSrc + "')");
 
         clearTimeout(timer);
         timer = setTimeout(rotateMainImg, 3000);
@@ -204,7 +204,7 @@ require([
 
     function getMainImgs() {
         $.ajax({
-            url: "/api2/main/imgs",
+            url: global.root +"/api2/main/imgs",
             success: function (imgList) {
                 mainImgList=imgList;
                 rotateMainImg();

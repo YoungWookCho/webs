@@ -10,10 +10,10 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="js/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="js/vendor/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/{{cssName}}.css">
+    <link rel="stylesheet" href="{{root}}/css/normalize.css">
+    <link rel="stylesheet" href="{{root}}/js/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{root}}/js/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{root}}/css/{{cssName}}.css">
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
@@ -28,7 +28,6 @@
                 <i class="fa fa-search"></i>
                 <input type="text" id="top-search" placeholder="지역, 식당 또는 음식">
                 <div class="search-clear">CLEAR</div>
-
             </div>
         </div>
         <div id="main-menu">
@@ -36,15 +35,16 @@
                 <li>맛집리스트</li>
                 <li>한빛스토리</li>
                 <li class="hp-member">
-                    <i class="fa fa-user-o" ></i>
+                    <i class="fa fa-user-o"></i>
                     <div class="hp-member-popup">
                         <div class="hp-popup-arrow"></div>
                         <ul class="hp-member-btns">
                             <li class="hp-sign-up">회원가입</li>
                             <li class="hp-sign-in">로그인</li>
+                            <li class="hp-member-info">회원정보</li>
+                            <li class="hp-sign-out">로그아웃</li>
                         </ul>
                     </div>
-
                 </li>
             </ul>
         </div>

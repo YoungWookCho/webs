@@ -19,12 +19,18 @@ define([
     }
 
     function search() {
-        location.href = "search.html";
+        location.href = global.root+"search.html";
     }
+
+    function clearSearchKeywords() {
+        $("#main-search, #top-search").val("");
+    }
+
     var popupCssSelector = "";
 
     function closeLayerPopup() {
         $(popupCssSelector).hide();
+
         $(".hp-block-layer").remove();
         $("body").css("overflow", "");
 
@@ -32,17 +38,20 @@ define([
     }
 
     function openLayerPopup(cssSelector) {
-        if(popupCssSelector === cssSelector) {
+        if (popupCssSelector === cssSelector) {
             return;
         }
+
         popupCssSelector = cssSelector;
 
         $("body").css("overflow", "hidden");
+
         var blockLayerHTML = "<div class='hp-block-layer'></div>";
         $("body").append(blockLayerHTML);
+
         $(cssSelector).show();
 
-        $(".hp-block-layer").on("click", function () {
+        $(".hp-block-layer").on("click", function() {
             closeLayerPopup();
         });
     }
@@ -57,77 +66,204 @@ define([
         $(".hp-layer-popup").remove();
     }
 
-
-
     function signUp() {
         var userId = $("#hp-user-id").val();
         var userPw = $("#hp-user-pw").val();
-        var userPwCfm = $("#hp-user-pw-Cfm").val();
+        var userPwCfm = $("#hp-user-pw-cfm").val();
 
-        if(userId === undefined || userId === "") {
-            alert ("아이디를 입력하세요");
+        if (userId === undefined || userId === "") {
+            alert("아이디를 입력하세요.");
+            $("#hp-user-id").focus();
             return;
         }
-        else if(userPw === undefined || userPw === "") {
-            alert ("비밀번호를를 입력하세요");
+        else if (userPw === undefined || userPw === "") {
+            alert("비밀번호를 입력하세요.");
+            $("#hp-user-pw").focus();
             return;
         }
-        else if(userPw !== userPwCfm) {
-            alert ("비밀번호 확인을 동일하게 입력하세요");
+        else if (userPw !== userPwCfm) {
+            alert("비밀번호 확인을 동일하게 입력하세요.");
+            $("#hp-user-pw-cfm").focus();
             return;
         }
+
         $.ajax({
-            url: "/api2/member/signup",
+            url: global.root+"/api2/member/signup",
             method: "POST",
             data: {
                 userId: userId,
                 userPw: userPw
             },
-            success: function (data) {
-                alert(data.result);
+            success: function(data) {
+                if (data.result === "ok") {
+                    alert(userId + "님 환영합니다.");
+                    closeAjaxPopup();
+                }
+                else {
+                    alert("정상적으로 가입되지 않았습니다.");
+                }
             },
-            error: function (jqXHR) {
+            error: function(jqXHR) {
                 alert(jqXHR.responseJSON.message);
-                console.log(jqXHR);
-
             }
         });
     }
 
-    function attachPopupEvent(layerName) {
+    function checkSignedIn() {
+        $.ajax({
+            url: global.root+"/api2/member/signedin",
+            success: function(data) {
+                if (data.result === "yes") {
+                    $(".hp-sign-up").hide();
+                    $(".hp-sign-in").hide();
+                    $(".hp-member-info").show();
+                    $(".hp-sign-out").show();
+                }
+                else {
+                    $(".hp-sign-up").show();
+                    $(".hp-sign-in").show();
+                    $(".hp-member-info").hide();
+                    $(".hp-sign-out").hide();
+                }
+            }
+        });
+    }
+
+    function signIn() {
+        var userId = $("#hp-user-id").val();
+        var userPw = $("#hp-user-pw").val();
+
+        if (userId === undefined || userId === "") {
+            alert("아이디를 입력하세요.");
+            $("#hp-user-id").focus();
+            return;
+        }
+        else if (userPw === undefined || userPw === "") {
+            alert("비밀번호를 입력하세요.");
+            $("#hp-user-pw").focus();
+            return;
+        }
+
+        $.ajax({
+            url: global.root+"/api2/member/signin",
+            method: "POST",
+            data: {
+                userId: userId,
+                userPw: userPw
+            },
+            success: function(data) {
+                if (data.result === "ok") {
+                    alert(userId + "님 환영합니다.");
+                    closeAjaxPopup();
+
+                    $(".hp-sign-up").hide();
+                    $(".hp-sign-in").hide();
+                    $(".hp-member-info").show();
+                    $(".hp-sign-out").show();
+                }
+                else {
+                    alert("정상적으로 로그인되지 않았습니다.");
+                }
+            },
+            error: function(jqXHR) {
+                alert(jqXHR.responseJSON.message);
+            }
+        });
+    }
+
+    function updateMemberInfo() {
+        var userPw = $("#hp-user-pw").val();
+        var userPwCfm = $("#hp-user-pw-cfm").val();
+
+        if (userPw === undefined || userPw === "") {
+            alert("비밀번호를 입력하세요.");
+            $("#hp-user-pw").focus();
+            return;
+        }
+        else if (userPw !== userPwCfm) {
+            alert("비밀번호 확인을 동일하게 입력하세요.");
+            $("#hp-user-pw-cfm").focus();
+            return;
+        }
+
+        $.ajax({
+            url: global.root+"/api2/member/update",
+            method: "POST",
+            data: {
+                userPw: userPw
+            },
+            success: function(data) {
+                if (data.result === "ok") {
+                    alert("정상적으로 수정되었습니다.");
+                    closeAjaxPopup();
+                }
+                else {
+                    alert("정상적으로 수정되지 않았습니다.");
+                }
+            },
+            error: function(jqXHR) {
+                alert(jqXHR.responseJSON.message);
+            }
+        });
+    }
+
+    function attachPopupEvents(layerName) {
         if (layerName === "sign-up") {
-            $("#hp-member-sign-up").on("click",function () {
+            $("#hp-member-sign-up").on("click", function() {
                 signUp();
             });
-            $(".hp-reset").on("click", function () {
+
+            $(".hp-reset").on("click", function() {
                 $("#hp-user-id").val("");
                 $("#hp-user-pw").val("");
-                $("#hp-user-pw-Cfm").val("");
+                $("#hp-user-pw-cfm").val("");
+
                 $("#hp-user-id").focus();
             });
         }
-        $(".hp-block-layer.ajax, .hp-popup-close").on("click", function () {
+        else if (layerName === "sign-in") {
+            $("#hp-member-sign-in").on("click", function() {
+                signIn();
+            });
+        }
+        else if (layerName === "member-info") {
+            $("#hp-member-info-update").on("click", function() {
+                updateMemberInfo();
+            });
+
+            $(".hp-reset").on("click", function() {
+                $("#hp-user-pw").val("");
+                $("#hp-user-pw-cfm").val("");
+
+                $("#hp-user-pw").focus();
+            });
+        }
+
+        $(".hp-block-layer.ajax, .hp-popup-close").on("click", function() {
             closeAjaxPopup();
         });
     }
 
     function openAjaxPopup(layerName) {
         $.ajax({
-            url: "layers/" + layerName + ".html",
-            success: function (html) {
+            url: global.root+"layers/" + layerName + ".html",
+            success: function(html) {
                 $("body").css("overflow", "hidden");
 
                 var blockLayerHTML = "<div class='hp-block-layer ajax'></div>";
                 $("body").append(blockLayerHTML);
+
                 $("body").append(html);
+
                 $(".hp-popup-contents>input:first-child").focus();
-                attachPopupEvent(layerName);
+
+                attachPopupEvents(layerName);
             }
         });
     }
 
     $("#main-logo").on("click", function() {
-        location.href = "/";
+        location.href = global.root+"/";
     });
 
     $(".hp-member").on("click", function() {
@@ -142,13 +278,28 @@ define([
         openAjaxPopup("sign-in");
     });
 
+    $(".hp-member-info").on("click", function() {
+        openAjaxPopup("member-info");
+    });
+
+    $(".hp-sign-out").on("click", function() {
+        $.ajax({
+            url: global.root+"/api2/member/signout",
+            success: function() {
+                $(".hp-sign-up").show();
+                $(".hp-sign-in").show();
+                $(".hp-member-info").hide();
+                $(".hp-sign-out").hide();
+            }
+        });
+    });
 
     $("#main-search, #top-search").on("keyup", function(event) {
         if (event.keyCode === 13) {
             search();
         }
         else if (event.keyCode === 27) {
-            $(this).val("");
+            clearSearchKeywords();
         }
     });
 
@@ -156,8 +307,8 @@ define([
         search();
     });
 
-    $(".search-clear").on("click", function () {
-        $("#main-search, #top-search").val("");
+    $(".search-clear").on("click", function() {
+        clearSearchKeywords();
     });
 
     function addHotPlaces(hotPlaces) {
@@ -168,7 +319,7 @@ define([
 
     function initHotPlaces() {
         $.ajax({
-            url: "/api/common/hotplaces",
+            url: global.root+"/api/common/hotplaces",
             success: function(hotPlaces) {
                 addHotPlaces(hotPlaces);
             }
@@ -206,6 +357,8 @@ define([
 
         return Math.min(zoom, maxZoom);
     }
+
+    checkSignedIn();
 
     return {
         initHotPlaces: initHotPlaces,

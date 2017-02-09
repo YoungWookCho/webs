@@ -58,10 +58,15 @@
     </div>
 </footer>
 </div>
+<script>
+    var global= {
+      root: "{{root}}",
+    };
 
-<script src="js/vendor/requirejs/require.min.js"></script>
-<script src="js/require.config.js"></script>
-<script src="js/{{jsName}}.js"></script>
+</script>
+<script src="{{root}}/js/vendor/requirejs/require.min.js"></script>
+<script src="{{root}}/js/require.config.js"></script>
+<script src="{{root}}/js/{{jsName}}.js"></script>
 
 </body>
 </html>

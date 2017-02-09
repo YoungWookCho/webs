@@ -1,17 +1,10 @@
 @import 'lib/include.all.less';
-@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
-* {
-    font-family: 'Spoqa Han Sans', 'Sans-serif';
-}
-/*
- * What follows is the result of much research on cross-browser styling.
- * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
- * Kroc Camen, and the H5BP dev community and team.
- */
 
-/* ==========================================================================
-   Base styles: opinionated defaults
-   ========================================================================== */
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
+
+* {
+    font-family: 'Spoqa Han Sans', sans-serif;
+}
 
 html {
     color: #222;
@@ -48,8 +41,6 @@ ul {
     width: 100%;
     min-height: 100%;
 }
-
-
 
 #main-bar {
     position: fixed;
@@ -106,21 +97,20 @@ ul {
     width: 100%;
     height: 100%;
     border: 0;
-    font-size: 20px;
+    font-size: 17px;
     padding-left: 70px;
 }
-.search-clear{
+
+#top-search:focus {
+    outline: none;
+}
+
+.search-clear {
     @abs-vmiddle();
     font-size: 17px;
     color: #ccc;
     right: 20px;
     cursor: pointer;
-}
-
-
-
-#top-search:focus {
-    outline: none;
 }
 
 #main-menu {
@@ -136,14 +126,9 @@ ul {
     border-left: solid 1px #ddd;
     color: #aaa;
     font-size: 16px;
-    font-weight: bold;
     line-height: @mainbar-height;
     vertical-align: middle;
     cursor: pointer;
-}
-
-.hp-member {
-    position: relative;
 }
 
 .hp-block-layer {
@@ -152,7 +137,7 @@ ul {
     left: 0px;
     width: 100%;
     height: 100%;
-    background-color: #000000;
+    background-color: #000;
     opacity: 0.5;
 }
 
@@ -165,9 +150,8 @@ ul {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #ffffff;
+    background-color: #fff;
     z-index: 100;
-
 }
 
 .hp-popup-title {
@@ -190,6 +174,7 @@ ul {
     padding: 10px 20px;
     margin: 5px 0px;
 }
+
 .hp-popup-contents>input[type='text']:focus,
 .hp-popup-contents>input[type='password']:focus {
     outline: none;
@@ -210,9 +195,10 @@ ul {
     border-radius: 20px;
     line-height: 40px;
     padding: 0px 20px;
-    margin: 0px 20px;
+    margin: 0px 5px;
     cursor: pointer;
 }
+
 .hp-popup-btns>li.primary {
     background-color: @main-color;
     color: #fff;
@@ -220,19 +206,27 @@ ul {
 
 .hp-layer-sign-up {
     width: 500px;
-
 }
 
 .hp-layer-sign-in {
     width: 500px;
 }
 
+.hp-member {
+    position: relative;
+}
+
 .hp-member-popup {
     display: none;
     position: absolute;
-    top: calc(~"100% + 10px");
+    top: calc(~"100% + 15px");
     right: 10px;
-    background-color: #ffffff;
+    background-color: #fff;
+}
+
+.hp-member-info,
+.hp-sign-out {
+    display: none;
 }
 
 .hp-popup-arrow {
@@ -241,7 +235,7 @@ ul {
     right: 12px;
     width: 21px;
     height: 21px;
-    background-color: #ffffff;
+    background-color: #fff;
     transform: rotate(45deg);
     z-index: -1;
 }
@@ -272,24 +266,17 @@ ul {
     padding-bottom: 495px;
 }
 
-
-
-
-
-
-
 footer {
     position: absolute;
     bottom: 0px;
     width: 100%;
-    height: 495px;
+    height: @footer-height;
     background-color: #3e3e3e;
 }
 
 .footer-box {
     width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
+    @margin-auto-width();
     color: #aaa;
 }
 

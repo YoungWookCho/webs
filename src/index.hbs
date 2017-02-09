@@ -1,4 +1,5 @@
-<!doctype html>
+{{set root="."}}
+<!DOCTYPE html>
 <html class="no-js" lang="ko">
 <head>
     <meta charset="utf-8">
@@ -10,67 +11,56 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
 
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="js/vendor/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="js/vendor/bootstrap/css/bootstrap.min.css">
-
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="{{root}}/css/normalize.css">
+    <link rel="stylesheet" href="{{root}}/js/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{root}}/js/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{root}}/css/main.css">
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
 
 <div class="hp-container">
-    <div id="main-top" >
-        <div class="layer-dark">
-            <div id="main-top-body">
-                <div id="main-text">
-                    주관적인 리뷰, 믿을 수 있는 평점!<br>
-                    한빛 플레이트
-                </div>
-                <div id="main-search-box">
-                    <div id="main-search-form">
-                        <input id="main-search" type="text" placeholder="지역, 식당 또는 음식">
-                        <i class="fa fa-search" aria-hidden="true"></i>
-                        <button id="main-search-btn">검색</button>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <header id="main-bar" >
+    <header id="main-bar">
         <div id="main-logo">
-            HANBIT<br>
-            PLATE
+            HANBIT<br>PLATE
         </div>
         <div id="main-menu">
             <ul>
-                <li>
-                    맛집리스트
-                </li>
-                <li>
-                    한빛스토리
-                </li>
+                <li>맛집리스트</li>
+                <li>한빛스토리</li>
                 <li class="hp-member">
-                    <i class="fa fa-user-o" ></i>
+                    <i class="fa fa-user-o"></i>
                     <div class="hp-member-popup">
                         <div class="hp-popup-arrow"></div>
                         <ul class="hp-member-btns">
                             <li class="hp-sign-up">회원가입</li>
                             <li class="hp-sign-in">로그인</li>
+                            <li class="hp-member-info">회원정보</li>
+                            <li class="hp-sign-out">로그아웃</li>
                         </ul>
                     </div>
-
                 </li>
-
             </ul>
         </div>
     </header>
-
-    <div id="main-content" >
+    <div id="main-top">
+        <div class="layer-dark">
+            <div id="main-top-body">
+                <div id="main-text">
+                    주관적인 리뷰, 믿을 수 있는 평점!<br>
+                    한빛플레이트
+                </div>
+                <div id="main-search-box">
+                    <div id="main-search-form">
+                        <input id="main-search" type="text" placeholder="지역, 식당 또는 음식">
+                        <i class="fa fa-search"></i>
+                        <button id="main-search-btn">검색</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="main-content">
         <section>
             <div class="section-title">
                 믿고 보는 맛집 리스트
@@ -78,33 +68,23 @@
             <div class="section-body">
                 <div class="section-contents section01">
                     <div class="section-paging-arrow section-paging-left">
-                        <i class="glyphicon glyphicon-menu-left" ></i>
+                        <i class="glyphicon glyphicon-menu-left"></i>
                     </div>
-                    <ul class="section-contents-list">
-
+                    <ul>
                     </ul>
                     <div class="section-paging-arrow section-paging-right">
-                        <i class="glyphicon glyphicon-menu-right" ></i>
+                        <i class="glyphicon glyphicon-menu-right"></i>
                     </div>
-
                 </div>
                 <div class="section-paging">
                     <ul>
-                        <li class="active">
-                            <i class="fa fa-circle" ></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-circle" ></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-circle" ></i>
-                        </li>
-
+                        <li class="active"><i class="fa fa-circle"></i></li>
+                        <li><i class="fa fa-circle"></i></li>
+                        <li><i class="fa fa-circle"></i></li>
                     </ul>
                 </div>
             </div>
         </section>
-
         <section>
             <div class="section-title">
                 맛집 에디터의 초이스
@@ -112,48 +92,33 @@
             <div class="section-body">
                 <div class="section-contents section02">
                     <div class="section-paging-arrow section-paging-left">
-                        <i class="glyphicon glyphicon-menu-left" ></i>
+                        <i class="glyphicon glyphicon-menu-left"></i>
                     </div>
-                    <ul class="section-contents-list">
-
+                    <ul>
                     </ul>
                     <div class="section-paging-arrow section-paging-right">
-                        <i class="glyphicon glyphicon-menu-right" ></i>
+                        <i class="glyphicon glyphicon-menu-right"></i>
                     </div>
-
                 </div>
                 <div class="section-paging">
                     <ul>
-                        <li class="active">
-                            <i class="fa fa-circle" ></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-circle" ></i>
-                        </li>
-                        <li>
-                            <i class="fa fa-circle" ></i>
-                        </li>
-
+                        <li class="active"><i class="fa fa-circle"></i></li>
+                        <li><i class="fa fa-circle"></i></li>
                     </ul>
                 </div>
             </div>
         </section>
-
         <section>
             <div class="section-title">
-                한빛 스토리에 나온 식당
+                한빛스토리에 나온 식당
             </div>
             <div class="section-body">
                 <div class="section-contents section03">
                     <ul>
-
                     </ul>
-
                 </div>
-
             </div>
         </section>
-
         <section>
             <div class="section-title">
                 TV에 나온 식당
@@ -161,33 +126,24 @@
             <div class="section-body">
                 <div class="section-contents section04">
                     <ul>
-
                     </ul>
-
                 </div>
             </div>
         </section>
-
         <section>
             <div class="section-title">
                 평점이 높은 인기 식당
             </div>
             <div class="section-category">
                 <ul>
-
-
                 </ul>
-
             </div>
             <div class="section-body">
                 <div class="section-contents section05">
                     <ul>
-
                     </ul>
                 </div>
             </div>
         </section>
-
     </div>
-
-    {{>footer jsName='main'}}
+    {{> footer jsName='main'}}

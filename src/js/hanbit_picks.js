@@ -4,7 +4,7 @@ require(["common"], function(){
     common.initHotPlaces();
     $("#calc").on("click", function(){
         $.ajax({
-            url: "/api2/calc",
+            url: global.root+"/api2/calc",
             method: "POST",
             data: {
                 left: $("#left").val(),
