@@ -1,6 +1,7 @@
 require([
-    "common"
+    "common",
 ], function () {
+
     var common = require("common");
 
     var sectionInfo = {
@@ -46,7 +47,7 @@ require([
 
                 sectionHTML = "<li>";
                 sectionHTML += "<div class='section-img-box' " +
-                    "style=\"background-image: url('"+global.root +"/"+ item.img + "')\">";
+                    "style=\"background-image: url('" + window._ctx.root + "/" + item.img + "')\">";
                 sectionHTML += "<div class='layer-darker'>";
                 sectionHTML += "<div class='img-box-text'>";
                 sectionHTML += "<div class='img-box-title'>" + item.title + "</div>";
@@ -58,24 +59,18 @@ require([
 
                 $(".section-contents.section" + sectionCode + ">ul").append(sectionHTML);
             }
-            $(".section-contents.section"+sectionCode+" ul>li").on("click",function(){
 
-                location.href="top_list.html";
+            $(".section-contents.section01>ul>li").on("click", function() {
+                location.href = "top_list.html";
             });
         }
-
-
-
-
-
-
         else if (sectionCode === "02") {
             for (i=startIndex;i<endIndex;i++) {
                 item = items[i];
 
                 sectionHTML = "<li>";
                 sectionHTML += "<div class='section-img-box' " +
-                    "style=\"background-image: url('"+global.root +"/"+item.img + "')\">";
+                    "style=\"background-image: url('" + window._ctx.root + "/" + item.img + "')\">";
                 sectionHTML += "<div class='layer-darker'>";
                 sectionHTML += "<div class='img-box-text'>";
                 sectionHTML += "<div class='img-box-title'>" + item.title + "</div>";
@@ -84,7 +79,7 @@ require([
                 sectionHTML += "</div>";
                 sectionHTML += "<div class='editor-box'>";
                 sectionHTML += "<div class='editor-pic' " +
-                    "style=\"background-image: url('"+global.root +"/"+item.editorPic + "')\"></div>";
+                    "style=\"background-image: url('" + window._ctx.root + "/" + item.editorPic + "')\"></div>";
                 sectionHTML += "<div class='editor-name'>";
                 sectionHTML += item.editorName;
                 sectionHTML += "</div>";
@@ -96,8 +91,8 @@ require([
                 $(".section-contents.section" + sectionCode + ">ul").append(sectionHTML);
             }
 
-            $(".section-contents.section"+sectionCode+" ul>li").on("click",function() {
-                location.href="hanbit_picks.html";
+            $(".section-contents.section02>ul>li").on("click", function() {
+                location.href = window._ctx.root + "/hanbit_picks.html";
             });
         }
         else if (sectionCode === "03" || sectionCode === "04" || sectionCode === "05") {
@@ -106,11 +101,11 @@ require([
 
                 sectionHTML = "<li>";
                 sectionHTML += "<div class=\"section-img\" " +
-                    "style=\"background-image: url('"+global.root +"/"+ item.img + "')\"></div>";
+                    "style=\"background-image: url('" + window._ctx.root + "/" + item.img + "')\"></div>";
                 sectionHTML += "<div class=\"section-name\">";
                 sectionHTML += item.name;
                 sectionHTML += "</div>";
-                sectionHTML += "<div class=\"section-score\">";
+                sectionHTML += " <div class=\"section-score\">";
                 sectionHTML += item.score.toFixed(1);
                 sectionHTML += "</div>";
                 sectionHTML += "<div class=\"section-info\">";
@@ -120,22 +115,24 @@ require([
 
                 $(".section-contents.section" + sectionCode + ">ul").append(sectionHTML);
             }
-            $(".section-contents.section"+sectionCode+" ul>li").on("click",function() {
-                location.href="/sub/store.html";
+
+            $(".section-contents.section" + sectionCode + ">ul>li").on("click", function() {
+                location.href = window._ctx.root + "/sub/store.html";
             });
         }
     }
 
     function initSection(sectionCode) {
-        var url =global.root;
+        var url = window._ctx.root;
 
         if (sectionCode === "01" || sectionCode === "02") {
             url += "/api2";
         }
         else {
-            url +="/api";
+            url += "/api";
         }
-        url += "/main/section/"+sectionCode+"/items";
+
+        url += "/main/section/" + sectionCode + "/items";
 
         if (sectionCode === "01") {
             $.ajax({
@@ -155,9 +152,8 @@ require([
         }
         else if (sectionCode === "03" || sectionCode === "04" || sectionCode === "05") {
             if (sectionCode === "05") {
-
                 $.ajax({
-                    url: global.root +"/api/main/section/" + sectionCode + "/categories",
+                    url: window._ctx.root + "/api/main/section/" + sectionCode + "/categories",
                     success: function(categories) {
                         var maxCategories = sectionInfo[sectionCode].maxCategories;
 
@@ -171,10 +167,6 @@ require([
                         }
                     }
                 });
-
-
-
-
             }
 
             $.ajax({
@@ -187,16 +179,15 @@ require([
     }
 
     var timer;
-    var mainImgList=[];
-
-
-
+    var mainImgList = [];
 
     function rotateMainImg() {
-        var mainImgCount=mainImgList.length;
-        var mainImgNo = parseInt((Math.random() * 100) % mainImgCount);
-        var mainImgSrc = mainImgList[mainImgNo];
-        $("#main-top").css("background-image", "url('"+global.root +"/"+mainImgSrc + "')");
+        var mainImgCount = mainImgList.length;
+        var mainImgIndex = parseInt((Math.random() * 100) % mainImgCount);
+
+        var mainImgSrc = mainImgList[mainImgIndex];
+
+        $("#main-top").css("background-image", "url('" + window._ctx.root + "/" + mainImgSrc + "')");
 
         clearTimeout(timer);
         timer = setTimeout(rotateMainImg, 3000);
@@ -204,34 +195,37 @@ require([
 
     function getMainImgs() {
         $.ajax({
-            url: global.root +"/api2/main/imgs",
-            success: function (imgList) {
-                mainImgList=imgList;
+            url: window._ctx.root + "/api2/main/imgs",
+            success: function(imgList) {
+                mainImgList = imgList;
+
                 rotateMainImg();
             }
         });
     }
 
+    function toggleHeader() {
+        var scrollTop = document.body.scrollTop;
 
-    function togglerHeader() {
-        if (document.body.scrollTop>=430){
+        if (($("body").width() <= 700 && scrollTop >= 35) ||
+            scrollTop >= 430) {
             $("#main-bar").removeClass("header-transparent");
         }
-        else{
+        else {
             $("#main-bar").addClass("header-transparent");
         }
     }
 
     function handleEvents() {
-        $(window).on("scroll", function () {
-            togglerHeader();
+        $(window).on("scroll", function() {
+            toggleHeader();
         });
+    }
 
-        }
+    /*** 아래는 실행 ***/
 
+    toggleHeader();
 
-
-    togglerHeader();
     getMainImgs();
 
     initSection("01");
@@ -243,6 +237,4 @@ require([
     common.initHotPlaces();
 
     handleEvents();
-
-
 });

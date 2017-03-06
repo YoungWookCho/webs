@@ -1,24 +1,22 @@
 @import 'lib/include.all.less';
-@import 'common.css';
 
+@import 'common.css';
 
 #main-top {
     height: 499px;
-    background-image: url('../img/main0.jpg');
+    background-image: url(../img/main0.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position-x: 50%;
-    background-position-y: 69%;
+    background-position-y: 50%;
 }
-
-
 
 #main-top-body {
     text-align: center;
 }
 
 #main-text {
-    color: #ffffff;
+    color: #fff;
     font-size: 35px;
     padding: 116px 10px 40px 10px;
 }
@@ -27,18 +25,17 @@
     position: relative;
     width: 70%;
     max-width: 750px;
-    margin-left: auto;
-    margin-right: auto;
+    @margin-auto-width();
 }
 
 #main-search {
-    width: 80%;
+    width: 100%;
     height: 50px;
     border: solid 3px @main-color;
     border-radius: 25px;
     font-size: 20px;
     padding-left: 70px;
-    padding-right: 150px;
+    padding-right: 200px;
 }
 
 #main-search:focus {
@@ -48,7 +45,7 @@
 #main-search-form>i.fa-search {
     position: absolute;
     top: 9px;
-    left: 100px;
+    left: 30px;
     font-size: 30px;
     color: #CCCCCC;
 }
@@ -56,11 +53,11 @@
 #main-search-btn {
     position: absolute;
     top: 0px;
-    right: 66px;
+    right: 0px;
     width: 180px;
     height: 50px;
     background-color: @main-color;
-    color: #ffffff;
+    color: #fff;
     font-size: 20px;
     border-radius: 25px;
     border: 0px;
@@ -82,7 +79,6 @@
 
 .section-title {
     font-size: 20px;
-
     color: @main-color;
     padding: 0px 0px 20px 20px;
 }
@@ -96,7 +92,6 @@
 .section-category>ul>li {
     display: inline-block;
     font-size: 18px;
-
     color: #777;
     margin-left: 20px;
     padding: 0px 10px 10px 10px;
@@ -108,10 +103,6 @@
     cursor: pointer;
 }
 
-section-contents {
-    position: relative;
-}
-
 .section-contents {
     position: relative;
     text-align: center;
@@ -120,8 +111,6 @@ section-contents {
 .section-contents>ul {
     width: 100%;
     padding: 0px 40px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .section-contents>ul>li {
@@ -146,7 +135,6 @@ section-contents {
     height: 100%;
     background-size: cover;
     color: #fff;
-
 }
 
 .img-box-text {
@@ -171,13 +159,8 @@ section-contents {
     width: 60px;
     height: 2px;
     margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
+    @margin-auto-width();
     margin-bottom: 20px;
-}
-
-.section-img-box .img-box-desc {
-
 }
 
 .section-contents.section03>ul>li,
@@ -201,14 +184,12 @@ section-contents {
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 20px;
-
 }
 
 .section-score {
     display: inline-block;
     color: @main-color;
     font-size: 20px;
-
     vertical-align: top;
 }
 
@@ -250,14 +231,14 @@ section-contents {
 }
 
 .section-paging-right {
-    right: 0;
+    right: 0px;
 }
 
 .section-paging {
     text-align: center;
 }
 
-.section-paging>ul>li{
+.section-paging>ul>li {
     display: inline-block;
     color: #666;
     padding: 0px 3px;
@@ -266,4 +247,66 @@ section-contents {
 
 .section-paging>ul>li.active {
     color: @main-color;
+}
+
+@media (max-width: 700px) {
+    #main-top {
+        height: 150px;
+    }
+
+    #main-text {
+        display: none;
+    }
+
+    #main-top-body {
+        padding-top: (@mainbar-height + 20px);
+    }
+
+    #main-search {
+        height: 26px;
+        padding-left: 27px;
+        padding-right: 105px;
+        font-size: 12px;
+    }
+
+    #main-search-form {
+        width: 90%;
+    }
+
+    #main-search-form>i.fa-search {
+        top: 5px;
+        left: 10px;
+        font-size: 16px;
+    }
+
+    #main-search-btn {
+        width: 100px;
+        height: 26px;
+        border-radius: 13px;
+        font-size: 12px;
+    }
+
+    #main-content>section {
+        padding: 5px;
+    }
+
+    .section-title {
+        padding: 0px 0px 0px 20px;
+    }
+
+    .section-contents>ul {
+        padding: 0;
+    }
+
+    .section-contents.section01>ul>li,
+    .section-contents.section02>ul>li,
+    .section-contents.section03>ul>li,
+    .section-contents.section04>ul>li,
+    .section-contents.section05>ul>li {
+        width: 100%;
+    }
+
+    .section-paging-arrow {
+        display: none;
+    }
 }
