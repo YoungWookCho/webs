@@ -19,7 +19,7 @@ define([
     }
 
     function search() {
-        location.href = window._ctx.root + "/search.html";
+        location.href = global.root + "/search.html";
     }
 
     function clearSearchKeywords() {
@@ -88,8 +88,8 @@ define([
         }
 
         $.ajax({
-            url: window._ctx.root + "/api2/member/signup",
-            method: "POST",
+            url: global.root + "/api2/member/signup",
+            method: "POST", /*브라우저 개발자창&URL에 비밀번호와 아이디를 확인할 수 없게 하기 위해 POST 방식으로 해야 함*/
             data: {
                 userId: userId,
                 userPw: userPw
@@ -116,7 +116,7 @@ define([
 
     function checkSignedIn() {
         $.ajax({
-            url: window._ctx.root + "/api2/member/signedin",
+            url: global.root + "/api2/member/signedin",
             success: function(data) {
                 if (data.result === "yes") {
                     $(".hp-sign-up").hide();
@@ -150,17 +150,17 @@ define([
         }
 
         $.ajax({
-            url: window._ctx.root + "/api2/member/signin",
+            url: global.root + "/api2/member/signin",
             method: "POST",
             data: {
                 userId: userId,
                 userPw: userPw
             },
-            success: function(data) {
-                if (data.result === "ok") {
+            success: function (data) {
+                if(data.result === "ok") {
                     alert(userId + "님 환영합니다.");
                     closeAjaxPopup();
-
+                    //로그인시, 로그인 버튼을 로그아웃으로 변경//
                     $(".hp-sign-up").hide();
                     $(".hp-sign-in").hide();
                     $(".hp-member-info").show();
@@ -169,8 +169,9 @@ define([
                 else {
                     alert("정상적으로 로그인되지 않았습니다.");
                 }
+
             },
-            error: function(jqXHR) {
+            error: function (jqXHR) {
                 if (jqXHR.status === 1500) {
                     alert(JSON.parse(jqXHR.responseText).errorMsg);
                 }
@@ -197,7 +198,7 @@ define([
         }
 
         $.ajax({
-            url: window._ctx.root + "/api2/member/update",
+            url: global.root + "/api2/member/update",
             method: "POST",
             data: {
                 userPw: userPw
@@ -261,7 +262,7 @@ define([
 
     function openAjaxPopup(layerName) {
         $.ajax({
-            url: window._ctx.root + "/layers/" + layerName + ".html",
+            url: global.root + "/layers/" + layerName + ".html",
             success: function(html) {
                 $("body").css("overflow", "hidden");
 
@@ -278,7 +279,7 @@ define([
     }
 
     $("#main-logo").on("click", function() {
-        location.href = window._ctx.root + "/";
+        location.href = global.root + "/";
     });
 
     $(".hp-member").on("click", function() {
@@ -299,7 +300,7 @@ define([
 
     $(".hp-sign-out").on("click", function() {
         $.ajax({
-            url: window._ctx.root + "/api2/member/signout",
+            url: global.root + "/api2/member/signout",
             success: function() {
                 $(".hp-sign-up").show();
                 $(".hp-sign-in").show();
@@ -334,7 +335,7 @@ define([
 
     function initHotPlaces() {
         $.ajax({
-            url: window._ctx.root + "/api/common/hotplaces",
+            url: global.root + "/api2/common/hotplaces",
             success: function(hotPlaces) {
                 addHotPlaces(hotPlaces);
             }
@@ -373,6 +374,7 @@ define([
         return Math.min(zoom, maxZoom);
     }
 
+    //매번 실행시켜줘야 새로고침해도 실행됨//
     checkSignedIn();
 
     return {

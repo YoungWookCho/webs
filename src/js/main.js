@@ -1,5 +1,5 @@
 require([
-    "common",
+    "common"
 ], function () {
 
     var common = require("common");
@@ -47,7 +47,7 @@ require([
 
                 sectionHTML = "<li>";
                 sectionHTML += "<div class='section-img-box' " +
-                    "style=\"background-image: url('" + window._ctx.root + "/" + item.img + "')\">";
+                    "style=\"background-image: url('" + global.root + "/" + item.img + "')\">";
                 sectionHTML += "<div class='layer-darker'>";
                 sectionHTML += "<div class='img-box-text'>";
                 sectionHTML += "<div class='img-box-title'>" + item.title + "</div>";
@@ -61,7 +61,7 @@ require([
             }
 
             $(".section-contents.section01>ul>li").on("click", function() {
-                location.href = "top_list.html";
+                location.href = global.root + "top_list.html";
             });
         }
         else if (sectionCode === "02") {
@@ -70,7 +70,7 @@ require([
 
                 sectionHTML = "<li>";
                 sectionHTML += "<div class='section-img-box' " +
-                    "style=\"background-image: url('" + window._ctx.root + "/" + item.img + "')\">";
+                    "style=\"background-image: url('" + global.root + "/" + item.img + "')\">";
                 sectionHTML += "<div class='layer-darker'>";
                 sectionHTML += "<div class='img-box-text'>";
                 sectionHTML += "<div class='img-box-title'>" + item.title + "</div>";
@@ -79,7 +79,7 @@ require([
                 sectionHTML += "</div>";
                 sectionHTML += "<div class='editor-box'>";
                 sectionHTML += "<div class='editor-pic' " +
-                    "style=\"background-image: url('" + window._ctx.root + "/" + item.editorPic + "')\"></div>";
+                    "style=\"background-image: url('" + global.root + "/" + item.editorPic + "')\"></div>";
                 sectionHTML += "<div class='editor-name'>";
                 sectionHTML += item.editorName;
                 sectionHTML += "</div>";
@@ -92,7 +92,7 @@ require([
             }
 
             $(".section-contents.section02>ul>li").on("click", function() {
-                location.href = window._ctx.root + "/hanbit_picks.html";
+                location.href = global.root + "hanbit_picks.html";
             });
         }
         else if (sectionCode === "03" || sectionCode === "04" || sectionCode === "05") {
@@ -101,7 +101,7 @@ require([
 
                 sectionHTML = "<li>";
                 sectionHTML += "<div class=\"section-img\" " +
-                    "style=\"background-image: url('" + window._ctx.root + "/" + item.img + "')\"></div>";
+                    "style=\"background-image: url('" + global.root + "/" + item.img + "')\"></div>";
                 sectionHTML += "<div class=\"section-name\">";
                 sectionHTML += item.name;
                 sectionHTML += "</div>";
@@ -117,22 +117,14 @@ require([
             }
 
             $(".section-contents.section" + sectionCode + ">ul>li").on("click", function() {
-                location.href = window._ctx.root + "/sub/store.html";
+                location.href = global.root + "/sub/store.html";
             });
         }
     }
 
     function initSection(sectionCode) {
-        var url = window._ctx.root;
-
-        if (sectionCode === "01" || sectionCode === "02") {
-            url += "/api2";
-        }
-        else {
-            url += "/api";
-        }
-
-        url += "/main/section/" + sectionCode + "/items";
+        var url = global.root;
+        url += "/api2/main/section/" + sectionCode + "/items";
 
         if (sectionCode === "01") {
             $.ajax({
@@ -153,7 +145,7 @@ require([
         else if (sectionCode === "03" || sectionCode === "04" || sectionCode === "05") {
             if (sectionCode === "05") {
                 $.ajax({
-                    url: window._ctx.root + "/api/main/section/" + sectionCode + "/categories",
+                    url: global.root + "/api2/main/section/" + sectionCode + "/categories",
                     success: function(categories) {
                         var maxCategories = sectionInfo[sectionCode].maxCategories;
 
@@ -187,7 +179,7 @@ require([
 
         var mainImgSrc = mainImgList[mainImgIndex];
 
-        $("#main-top").css("background-image", "url('" + window._ctx.root + "/" + mainImgSrc + "')");
+        $("#main-top").css("background-image", "url('" + mainImgSrc + "')");
 
         clearTimeout(timer);
         timer = setTimeout(rotateMainImg, 3000);
@@ -195,20 +187,18 @@ require([
 
     function getMainImgs() {
         $.ajax({
-            url: window._ctx.root + "/api2/main/imgs",
-            success: function(imgList) {
+            url: global.root + "/api2/main/imgs",
+            success: function (imgList) {
                 mainImgList = imgList;
 
                 rotateMainImg();
+
             }
         });
     }
 
     function toggleHeader() {
-        var scrollTop = document.body.scrollTop;
-
-        if (($("body").width() <= 700 && scrollTop >= 35) ||
-            scrollTop >= 430) {
+        if (document.body.scrollTop >= 430) {
             $("#main-bar").removeClass("header-transparent");
         }
         else {
